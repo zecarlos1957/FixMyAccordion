@@ -62,7 +62,8 @@ and differentiating the sides with negative and positive numbers.
                             |      |
                             -5    -12
                             
-        static int MajorKeys[8][3] ={
+        static int MajorKeys[8][3] =
+        {
             {-5, 9, -12},
             ...
         }
