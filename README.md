@@ -34,26 +34,27 @@ Description:
                          25 units in length
     
     
-    ShaftList[][]={
+    ShaftList[][]=
+    {
     ...
-    {1, 8, 20, 0},   // some of shafts have 4 pins
+        {1, 8, 20, 0},   // some of shafts have 4 pins
     ...    
-};
+    };
 
 
-TShaft::TShaft(int n1, int n2, int n3, int n4)
-{
-    conf = 0; name[0] = '\0'; status = 0;
-    if(n1)conf = (DWORD)1 << (n1 - 1);
-    if(n2)conf |= (DWORD)1 << (n2 - 1);
-    if(n3)conf |= (DWORD)1 << (n3 - 1);
-    if(n4)conf |= (DWORD)1 << (n4 - 1);
-}
+    TShaft::TShaft(int n1, int n2, int n3, int n4)
+    {
+        conf = 0; name[0] = '\0'; status = 0;
+        if(n1)conf = (DWORD)1 << (n1 - 1);
+        if(n2)conf |= (DWORD)1 << (n2 - 1);
+        if(n3)conf |= (DWORD)1 << (n3 - 1);
+        if(n4)conf |= (DWORD)1 << (n4 - 1);
+    }
 
-TShaft * tr = new TShaft(ShaftList[n][0], ShaftList[n][1], ShaftList[n][2], ShaftList[n][3]); 
+    TShaft * tr = new TShaft(ShaftList[n][0], ShaftList[n][1], ShaftList[n][2], ShaftList[n][3]); 
 
-     To represent the keys, they can be divided into 12 positions, corresponding to each of the shafts, 
-     and differentiating the sides with negative and positive numbers.
+To represent the keys, they can be divided into 12 positions, corresponding to each of the shafts, 
+and differentiating the sides with negative and positive numbers.
 
 
                                9
@@ -83,28 +84,28 @@ TShaft * tr = new TShaft(ShaftList[n][0], ShaftList[n][1], ShaftList[n][2], Shaf
  
 
 
-        Now that we have the 8 keys and the 12 shafts represented, we need to arrange all this in the correct order, 
-     so that when we press, or in this case, when we click with the mouse on one of the keys, they activate the 
-     shafts that open the valves to the desired chord.
-         For this, it is essential to know that <The third note of a chord is the first of the next chord>, for example 
-         the third of the DO chord is SOL (DO, MI, SOL), the next chord will be SOL. The third of SOL is RE (SOL, SI, RE)
-          the next chord will be RE, etc.etc. .
-         Now our list of keys after being sorted in the Find method has been modified, now containing all the keys in 
-     the correct sequence.
+Now that we have the 8 keys and the 12 shafts represented, we need to arrange all this in the correct order, 
+so that when we press, or in this case, when we click with the mouse on one of the keys, they activate the 
+shafts that open the valves to the desired chord.
+For this, it is essential to know that <The third note of a chord is the first of the next chord>, for example 
+the third of the DO chord is SOL (DO, MI, SOL), the next chord will be SOL. The third of SOL is RE (SOL, SI, RE)
+the next chord will be RE, etc.etc. .
+Now our list of keys after being sorted in the Find method has been modified, now containing all the keys in 
+the correct sequence.
     
     
            
- static int TMaior[8][3]            index[8][3]
- {
-    {-5,9,-12},       ->            {-12,4,-7},   // MI
-    {-11,3,-6},       ->            {-5,9,-12},   // LA
-    {-6,10,-1},       ->            {-10,2,-5},   // RE
-    {-1,5,-8},        ->            {-3,7,-10},   // SOL
-    {-8,12,-3},       ->            {-8,12,-3},   // DO
-    {-3,7,-10},       ->            {-1,5,-8},    // FA
-    {-10,2,-5},       ->            {-6,10,-1},   // SIb
-    {-12,4,-7}        ->            {-11,3,-6}    // MIb
-};
+     static int TMaior[8][3]            index[8][3]
+     {
+        {-5,9,-12},       ->            {-12,4,-7},   // MI
+        {-11,3,-6},       ->            {-5,9,-12},   // LA
+        {-6,10,-1},       ->            {-10,2,-5},   // RE
+        {-1,5,-8},        ->            {-3,7,-10},   // SOL
+        {-8,12,-3},       ->            {-8,12,-3},   // DO
+        {-3,7,-10},       ->            {-1,5,-8},    // FA
+        {-10,2,-5},       ->            {-6,10,-1},   // SIb
+        {-12,4,-7}        ->            {-11,3,-6}    // MIb
+    };
 
 
 
