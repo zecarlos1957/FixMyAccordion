@@ -109,6 +109,6 @@ the correct sequence.
     };
 
 
-
+![Screenshot](LeftHandMechanism.png)
  
      Enjoy and have fun.
