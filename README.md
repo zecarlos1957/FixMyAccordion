@@ -10,10 +10,11 @@ This was the starting point and the impetus for carrying out this work.
 
 
 Description:
+
         8 rows of buttons: MI, LA, RE, SOL, DO, FA, SIb, MIb.
         4 lines of buttons: Bass, Major, Minor, Seventh.
         12 keys with 3 or 4 pins that will activate 3 or 4 shafts.
-        12 shafts with 2, 3 or 4 pins that drive 1 valve and .
+        12 shafts with 2, 3 or 4 pins that drive 1 valve.
         
         For simplification, we will separate the keys with 4 pins, which are the keys of the seventh chord.
      Comparing these with each of the others, we will separate the ones that match 3 pins, they are the keys 
@@ -33,8 +34,7 @@ Description:
                          25 units in length
     
     
-    ShaftList[][]=
-{
+    ShaftList[][]={
     ...
     {1, 8, 20, 0},   // some of shafts have 4 pins
     ...    
@@ -50,9 +50,7 @@ TShaft::TShaft(int n1, int n2, int n3, int n4)
     if(n4)conf |= (DWORD)1 << (n4 - 1);
 }
 
-TShaft * tr = new TShaft(ShaftList[n][0], ShaftList[n][1], ShaftList[n][2], ShaftList[n][3]);
-
- 
+TShaft * tr = new TShaft(ShaftList[n][0], ShaftList[n][1], ShaftList[n][2], ShaftList[n][3]); 
 
      To represent the keys, they can be divided into 12 positions, corresponding to each of the shafts, 
      and differentiating the sides with negative and positive numbers.
@@ -63,27 +61,25 @@ TShaft * tr = new TShaft(ShaftList[n][0], ShaftList[n][1], ShaftList[n][2], Shaf
                             |      |
                             -5    -12
                             
-static int MajorKeys[8][3] =
-{
-    {-5, 9, -12},
-    ...
-}
+        static int MajorKeys[8][3] ={
+            {-5, 9, -12},
+            ...
+        }
 
+        void TKey::MakeConfig(int n1, int n2, int n3, int n4)
+        {
+              Lconf = Rconf = 0;
+              if (n1 > 0)      Rconf |= (DWORD)1 << (n1 - 1);
+              else if (n1 < 0) Lconf |= (DWORD)1 << (abs(n1) - 1);
+              if (n2 > 0)      Rconf |= (DWORD)1 << (n2 - 1);
+              else if (n2 < 0) Lconf |= (DWORD)1 << (abs(n2) - 1);
+              if (n3 > 0)      Rconf |= (DWORD)1 << (n3 - 1);
+              else if (n3 < 0) Lconf |= (DWORD)1 << (abs(n3) - 1);
+              if (n4 > 0)      Rconf |= (DWORD)1 << (n4 - 1);
+              else if (n4 < 0) Lconf |= (DWORD)1 << (abs(n4) - 1);
+        }
 
-void TKey::MakeConfig(int n1, int n2, int n3, int n4)
-{
-      Lconf = Rconf = 0;
-      if (n1 > 0)      Rconf |= (DWORD)1 << (n1 - 1);
-      else if (n1 < 0) Lconf |= (DWORD)1 << (abs(n1) - 1);
-      if (n2 > 0)      Rconf |= (DWORD)1 << (n2 - 1);
-      else if (n2 < 0) Lconf |= (DWORD)1 << (abs(n2) - 1);
-      if (n3 > 0)      Rconf |= (DWORD)1 << (n3 - 1);
-      else if (n3 < 0) Lconf |= (DWORD)1 << (abs(n3) - 1);
-      if (n4 > 0)      Rconf |= (DWORD)1 << (n4 - 1);
-      else if (n4 < 0) Lconf |= (DWORD)1 << (abs(n4) - 1);
-}
-
-TKey *k = new TKey(MajorKeys[index[n]][0], MajorKeys[index[n]][1], MajorKeys[index[n]][2]);
+        TKey *k = new TKey(MajorKeys[index[n]][0], MajorKeys[index[n]][1], MajorKeys[index[n]][2]);
  
 
 
