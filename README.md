@@ -16,18 +16,18 @@ Description:
         12 keys with 3 or 4 pins that will activate 3 or 4 shafts.
         12 shafts with 2, 3 or 4 pins that drive 1 valve.
         
-        For simplification, we will separate the keys with 4 pins, which are the keys of the seventh chord.
-     Comparing these with each of the others, we will separate the ones that match 3 pins, they are the keys 
-     of the Major chord. The rest that differ only one pin are the Minor chord.
-        We now have 3 groups of keys: Major, Minor and Seventh.
-     Now we just need to identify the name and position of the 8 keys of the Major group, and then by comparison
-     we will be able to identify and assemble the rest.
+ For simplification, we will separate the keys with 4 pins, which are the keys of the seventh chord.
+Comparing these with each of the others, we will separate the ones that match 3 pins, they are the keys 
+of the Major chord. The rest that differ only one pin are the Minor chord.
+We now have 3 groups of keys: Major, Minor and Seventh.
+Now we just need to identify the name and position of the 8 keys of the Major group, and then by comparison
+we will be able to identify and assemble the rest.
 
-     To represent the shafts, let's see how many parts we can divide a shaft, that is, how many positions there 
-     may be pins.
-     By placing a shaft arbitrarily in one of the positions of the structure of the panel, we can verify that 
-     there may be pins in any of the spaces that separate the grooves where the keys work, and there are 25 
-     spaces. Thus, a DWORD can represent a shaft with bits 1 at the pin position.
+To represent the shafts, let's see how many parts we can divide a shaft, that is, how many positions there 
+may be pins.
+By placing a shaft arbitrarily in one of the positions of the structure of the panel, we can verify that 
+there may be pins in any of the spaces that separate the grooves where the keys work, and there are 25 
+spaces. Thus, a DWORD can represent a shaft with bits 1 at the pin position.
     
                      1       8            20
                     _|_______|____________|_____
