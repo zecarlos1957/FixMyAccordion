@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1601580182 source:c:\users\jose\documents\projects\acord\main.cpp
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+
+1604224145 source:d:\users\jose\searches\projects\acordeon\main.cpp
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+
