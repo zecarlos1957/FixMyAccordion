@@ -15,6 +15,7 @@ LRESULT CALLBACK WindowProcedure (HWND, UINT, WPARAM, LPARAM);
 TCHAR szClassName[] = _T("CodeBlocksWindowsApp");
 
 #define PANELSIZE 12
+#define MAX_BUTTONS 8
 
 
 //                 1    2    3    4    5     6     7    8    9    10     11    12
@@ -55,7 +56,7 @@ static int ShaftList[12][4] =
 	{7,9,14,0}
 };
  
-static int MajorKeys[8][3] =
+static int MajorKeys[MAX_BUTTONS][3] =
 {
 	{-5,9,-12},
 	{-11,3,-6},
@@ -110,7 +111,7 @@ class ButtonPanel
     HWND hWnd;
     int initpos;
     TShaft *shaft[PANELSIZE];
-    TKey *key[PANELSIZE];
+    TKey *key[MAX_BUTTONS];
 
 public:
     ButtonPanel(HWND hwnd);
@@ -198,7 +199,7 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
             btnPanel = new ButtonPanel(hwnd);
             if(btnPanel->Init() < 0)
             {
-                MessageBox(0, "Fail to build button panel","Error", MB_OK);
+                MessageBox(0, "Fail to build buttons panel","Error", MB_OK);
                 return -1;
             }
             break;
@@ -230,20 +231,21 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
 
 ButtonPanel::ButtonPanel(HWND hwnd): hWnd(hwnd)
 {
-    for(int n=0;n<12;n++)
-        shaft[n]=0;
-    for(int n=0;n<8;n++)
-        key[n]=0;
+    ZeroMemory(shaft, (PANELSIZE * sizeof(TShaft*)));
+    ZeroMemory(key, (MAX_BUTTONS * sizeof(TKey*)));
+    
+    // Locate the image in the screen
     X1 = 40;
     Y1 = 70;
-    wSpace = 21;
-    hSpace = 21;
-    initpos = 2;
+
+    wSpace = 21;    // Space between keys
+    hSpace = 21;    // Space between shafts
+    initpos = 2;    // position of first key in buttons panel
 }
 
 ButtonPanel::~ButtonPanel()
 {
-    for(int i = 0; i < 8; i++)
+    for(int i = 0; i < MAX_BUTTONS; i++)
         delete key[i];
     for(int i = 0; i < PANELSIZE; i++)
           delete shaft[i];
@@ -251,15 +253,15 @@ ButtonPanel::~ButtonPanel()
 
 int ButtonPanel::Init()
 {
-    int index[8];
+    int index[MAX_BUTTONS];
     
     if(!Find(index))
     {
-       MessageBox(0, "Impossible to sort","Error", MB_OK);
+       MessageBox(0, "Impossible to sort keys","Error", MB_OK);
        return -1;
     }
     //
-    for(int n = 0; n < 8; n++)
+    for(int n = 0; n < MAX_BUTTONS; n++)
     {
         TKey *k = new TKey(MajorKeys[index[n]][0], MajorKeys[index[n]][1], MajorKeys[index[n]][2]);
         k->SetPos(n + initpos + 1);
@@ -293,19 +295,24 @@ int ButtonPanel::Init()
     return 0;
 }
 
+/*
+*    Sort the key list to correct order
+*    return true if sucessfull, false otherwise. 
+*/
+
 int ButtonPanel::Find(int *index)
 {
     int value, done;
     
-    FillMemory(index, 8 * sizeof(int), 0  );
+    ZeroMemory(index, MAX_BUTTONS * sizeof(int));
                
-    for(int i = 0; i < 8; i++)
+    for(int i = 0; i < MAX_BUTTONS; i++)
     {
         value = i;
         done = 0;
         *(index + 7) = value;
         
-        for (int n = 0; n < 8; n++)
+        for (int n = 0; n < MAX_BUTTONS; n++)
         {
             value = GetNext(value);
             if (value < 0) break;
@@ -322,12 +329,14 @@ int ButtonPanel::Find(int *index)
 
 int ButtonPanel::GetNext(int i)
 {
+    // get first note of chord
     int value = MajorKeys[i][0];
-    
-    for(int t = 0; t < 8; t++)
+
+    // find the chord index that match the third note
+    for(int t = 0; t < MAX_BUTTONS; t++)
     {
         if (i != t && value == MajorKeys[t][2])
-            return t;
+            return t;                   
     }
     return -1;
 }
@@ -352,7 +361,7 @@ void ButtonPanel::OnPaint()
     
     DeleteObject(SelectObject(dc,old));
     
-    for(int i = 0; i < 8; i++)
+    for(int i = 0; i < MAX_BUTTONS; i++)
         key[i]->Draw(dc, 0);
  
     for(int n = 0; n < PANELSIZE; n++)
@@ -383,7 +392,7 @@ void ButtonPanel::OnPaint()
  
 int ButtonPanel::CheckClick(POINTS p)
 {
-    for(int n = 0; n < 8; n++)
+    for(int n = 0; n < MAX_BUTTONS; n++)
     {
         if(key[n]->MouseOver(p))
             return n;
@@ -574,9 +583,11 @@ int TShaft::SetPos(int p)
 int TShaft::Where()
 {
     int in[4], out[4], p;
-    for(int n = 0; n < 4 ;n++)
-        in[n] = out[n] = 0;
-    GetPin(in,out);
+
+    ZeroMemory(in, (4 * sizeof(int)));
+    ZeroMemory(out, (4 * sizeof(int)));
+    
+    GetPin(in, out);
     if ((p = Select(in, out)))
         return p;
     return 0;
