@@ -336,7 +336,7 @@ int ButtonPanel::GetNext(int i)
     for(int t = 0; t < MAX_BUTTONS; t++)
     {
         if (i != t && value == MajorKeys[t][2])
-            return t;                   
+            return t;
     }
     return -1;
 }
