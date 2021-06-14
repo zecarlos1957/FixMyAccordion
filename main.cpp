@@ -85,7 +85,7 @@ public:
     int SetPos(int);
     int Where();
     int Select(int *,int *);
-    void GetPin(int*,int*);
+    void GetPinFunction(int*,int*);
 
 };
 
@@ -587,7 +587,7 @@ int TShaft::Where()
     ZeroMemory(in, (4 * sizeof(int)));
     ZeroMemory(out, (4 * sizeof(int)));
     
-    GetPin(in, out);
+    GetPinFunction(in, out);
     if ((p = Select(in, out)))
         return p;
     return 0;
@@ -636,7 +636,7 @@ int TShaft::Select(int *in, int *out)
 /**
     Identify input and output pins
 */
-void TShaft::GetPin(int *_in, int *_out)
+void TShaft::GetPinFunction(int *_in, int *_out)
 {
 	int *in, *out, note;
 	in = _in;
