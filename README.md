@@ -88,7 +88,7 @@ and differentiating the sides with negative and positive numbers.
 Now that we have the 8 keys and the 12 shafts represented, we need to arrange all this in the correct order, 
 so that when we press, or in this case, when we click with the mouse on one of the keys, they activate the 
 shafts that open the valves to the desired chord.
-For this, it is essential to know that <The third note of a chord is the first of the next chord>, for example 
+For this, it is essential to know that <The third note of a chord match  the first of the next chord>, for example 
 the third of the DO chord is SOL (DO, MI, SOL), the next chord will be SOL. The third of SOL is RE (SOL, SI, RE)
 the next chord will be RE, etc.etc. .
 Now our list of keys after being sorted in the Find method has been modified, now containing all the keys in 
