@@ -21,7 +21,7 @@ Comparing these with each of the others, we will separate the ones that match 3 
 of the Major chord. The rest that differ only one pin are the Minor chord.
 We now have 3 groups of keys: Major, Minor and Seventh.
 Now we just need to identify the name and position of the 8 keys of the Major group, and then by comparison
-we will be able to identify and assemble the rest.
+we will be able to identify and assemble the others.
 
 To represent the shafts, let's see how many parts we can divide a shaft, that is, how many positions there 
 may be pins.
