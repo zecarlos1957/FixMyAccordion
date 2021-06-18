@@ -358,7 +358,13 @@ void ButtonPanel::OnPaint()
     LineTo(dc, x1 + w, Y1 + 275);
     LineTo(dc, x1, Y1 + 275);
     LineTo(dc, x1, Y1 - 10);
-    
+
+    MoveToEx(dc, x1 + wSpace, Y1 - 10, NULL);
+    LineTo(dc, x1 + wSpace, Y1 + 275);
+
+    MoveToEx(dc, x1 + w - wSpace, Y1 - 10, NULL);
+    LineTo(dc, x1 + w - wSpace, Y1 + 275);
+
     DeleteObject(SelectObject(dc,old));
     
     for(int i = 0; i < MAX_BUTTONS; i++)
