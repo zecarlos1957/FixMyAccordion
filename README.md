@@ -14,7 +14,8 @@ Description:
         8 rows of buttons: MI, LA, RE, SOL, DO, FA, SIb, MIb.
         4 lines of buttons: Bass, Major, Minor, Seventh.
         12 keys with 3 or 4 pins that will activate 3 or 4 shafts.
-        12 shafts with 2, 3 or 4 pins that drive 1 valve.
+        12 shafts with 2, 3 or 4 pins accepting key commands(inputs);
+           one of them, in the odd position, activates the valve.(Output).
         
  For simplification, we will separate the keys with 4 pins, which are the keys of the seventh chord.
 Comparing these with each of the others, we will separate the ones that match 3 pins, they are the keys 
